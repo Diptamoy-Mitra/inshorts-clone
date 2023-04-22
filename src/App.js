@@ -15,11 +15,13 @@ const [loadMore, setLoadMore] = useState(20);
 
 
 //https://saurav.tech/NewsAPI/top-headlines/category/${category}/in.json
+//https://saurav.tech/NewsAPI/
+//https://${proxyUrl}newsapi.org/v2/top-headlines?country=in&apiKey=f88288f4bca14599a2334cadfb3d6f4b&pageSize=${loadMore}&category=${category}
 const newsApi= async () =>{
   try {
     const proxyUrl="https://cors-anywhere.herokuapp.com/";
     
-    const news=await axios.get(`https://${proxyUrl}newsapi.org/v2/top-headlines?country=in&apiKey=f88288f4bca14599a2334cadfb3d6f4b&pageSize=${loadMore}&category=${category}`);
+    const news=await axios.get(`https://newsapi.org/v2/top-headlines?country=in&apiKey=f88288f4bca14599a2334cadfb3d6f4b&pageSize=${loadMore}&category=${category}`);
 
   setNewsArray(news.data.articles)
   setNewsResults(news.data.totalResults)
