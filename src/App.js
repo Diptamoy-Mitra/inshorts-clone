@@ -14,11 +14,12 @@ const [newsResults, setNewsResults]=useState();
 const [loadMore, setLoadMore] = useState(20);
 
 
-//https://saurav.tech/NewsAPI/top-headlines/category/${category}/pageSize/${loadMore}/in.json
+//https://saurav.tech/NewsAPI/top-headlines/category/${category}/in.json
 const newsApi= async () =>{
   try {
+    const proxyUrl="https://cors-anywhere.herokuapp.com/";
     
-    const news=await axios.get(`https://saurav.tech/NewsAPI/top-headlines/category/${category}/in.json`);
+    const news=await axios.get(`https://${proxyUrl}newsapi.org/v2/top-headlines?country=in&apiKey=f88288f4bca14599a2334cadfb3d6f4b&pageSize=${loadMore}&category=${category}`);
 
   setNewsArray(news.data.articles)
   setNewsResults(news.data.totalResults)
@@ -32,7 +33,7 @@ const newsApi= async () =>{
 
 useEffect(() => {
    newsApi();
-   // eslint-disable-next-line
+    // eslint-disable-next-line
 }, [newsResults,category,loadMore])
 
 
