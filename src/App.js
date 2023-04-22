@@ -1,23 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
 
+import { useState,useEffect } from 'react';
+import './App.css';
+import Navinshort from './components/Navinshort';
+import NewsContent from './components/NewsContents/NewsContent';
+import axios from 'axios';
+import apikey from './data/config';
+import Footer from './components/Footer/footer';
 function App() {
+
+const [category, setcategory] = useState("general");
+const [newsArray, setNewsArray]=useState([]);
+const [newsResults, setNewsResults]=useState();
+const [loadMore, setLoadMore] = useState(20);
+
+
+//https://saurav.tech/NewsAPI/top-headlines/category/${category}/pageSize/${loadMore}/in.json
+const newsApi= async () =>{
+  try {
+    
+    const news=await axios.get(`https://saurav.tech/NewsAPI/top-headlines/category/${category}/in.json`);
+
+  setNewsArray(news.data.articles)
+  setNewsResults(news.data.totalResults)
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// console.log(newsArray)
+
+useEffect(() => {
+   newsApi();
+   // eslint-disable-next-line
+}, [newsResults,category,loadMore])
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navinshort setcategory={setcategory} />
+      <NewsContent setLoadMore={setLoadMore} loadMore={loadMore} newsArray={newsArray} newsResults={newsResults}/>
+      <Footer></Footer>
+
     </div>
   );
 }
