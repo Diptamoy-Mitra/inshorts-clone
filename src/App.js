@@ -4,7 +4,7 @@ import './App.css';
 import Navinshort from './components/Navinshort';
 import NewsContent from './components/NewsContents/NewsContent';
 import axios from 'axios';
-import apikey from './data/config';
+import apike//y from './data/config';
 import Footer from './components/Footer/footer';
 function App() {
 
